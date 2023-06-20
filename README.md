@@ -1,9 +1,9 @@
 # bce
 
-# better
+##better
 
-# code
+##code
 
-# editor
+## editor
 
-### next.js + rust + tauri
+next.js + rust + tauri
