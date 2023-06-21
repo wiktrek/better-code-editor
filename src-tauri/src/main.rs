@@ -9,7 +9,7 @@ fn main() {
 }
 #[tauri::command]
 async fn open_file(path: String) -> Result<String, ()> {
-    let file = fs::read_to_string(path);
+    let file = fs::read_to_string(path).expect("error while reading file");
     println!("I was invoked from JS! {:?}", file);
-    Ok(file.expect("error while reading file"))
+    Ok(file)
 }
