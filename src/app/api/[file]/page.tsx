@@ -11,7 +11,9 @@ export default async function Page({ params }: { params: { file: string } }) {
       path: path,
     })
   );
-
+  function writeFile(path: string, text: string) {
+    // invoke('write_file', { path: path, text: text})
+  }
   // useEffect(() => {
   //   const keyDownHandler = (e: any) => console.log(`You pressed ${e.code}.`);
   //   document.addEventListener('keydown', keyDownHandler);

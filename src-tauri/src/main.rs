@@ -3,7 +3,7 @@
 use std::fs;
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![open_file])
+        .invoke_handler(tauri::generate_handler![open_file, write_file])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -12,4 +12,10 @@ async fn open_file(path: String) -> Result<String, ()> {
     let file = fs::read_to_string(path).expect("error while reading file");
     println!("I was invoked from JS! {:?}", file);
     Ok(file)
+}
+#[tauri::command]
+async fn write_file(path: String, text: String) -> Result<String, ()> {
+    // write file
+    println!("{}{}", path, text);
+    Ok("file written".to_string())
 }
