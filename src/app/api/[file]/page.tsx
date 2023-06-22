@@ -7,11 +7,17 @@ export default async function Page({ params }: { params: { file: string } }) {
   const { file } = params;
   const path = file.replaceAll('%3A', ':').replaceAll('%26', '/');
 
-  setInput(
-    await invoke('open_file', {
-      path: path,
-    })
-  );
+  // // useEffect(() => {
+  // //   const open_file = async () => {
+  // //     setInput(
+  // //       await invoke('open_file', {
+  // //         path: path,
+  // //       })
+  // //     );
+  // //   };
+
+  //   open_file().catch(console.error);
+  // });
   function writeFile(path: string, text: string) {
     console.log('a' + path + text);
     // path: string, text: string
