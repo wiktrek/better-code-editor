@@ -17,8 +17,7 @@ async fn open_file(path: String) -> Result<String, ()> {
 async fn write_file(path: String, text: String) -> Result<String, ()> {
     // write file
     println!("path: {} \n text: {}", path, text);
+    let _ = fs::write(path, text);
 
-    fs::write(path, text);
-
-    Ok("file written".to_string())
+    Ok("File saved!".to_string())
 }

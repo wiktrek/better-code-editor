@@ -6,7 +6,10 @@ export default async function Page({ params }: { params: { file: string } }) {
   const [input, setInput] = useState('');
   const [prevkey, setPrevkey] = useState('');
   const { file } = params;
-  const path = file.replaceAll('%3A', ':').replaceAll('%26', '/');
+  const path = file
+    .replace('http://localhost:3000/api/', '')
+    .replaceAll('%3A', ':')
+    .replaceAll('%26', '/');
 
   useEffect(() => {
     const open_file = async () => {
