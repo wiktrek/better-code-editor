@@ -13,11 +13,10 @@ export default async function Page({ params }: { params: { file: string } }) {
 
   useEffect(() => {
     const open_file = async () => {
-      setInput(
-        await invoke('open_file', {
-          path: path,
-        })
-      );
+      let file: string = await invoke('open_file', {
+        path: path,
+      });
+      setInput(file);
     };
     open_file().catch(console.error);
   });

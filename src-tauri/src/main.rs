@@ -1,23 +1,44 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 use std::fs;
+use std::path::Path;
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![open_file, write_file])
+        .invoke_handler(tauri::generate_handler![
+            open_file,
+            write_file,
+            rename_file,
+            check_file
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
 #[tauri::command]
 async fn open_file(path: String) -> Result<String, ()> {
     let file = fs::read_to_string(path).expect("error while reading file");
-    println!("I was invoked from JS! {:?}", file);
+    println!("open_file {:?}", file);
     Ok(file)
 }
 #[tauri::command]
 async fn write_file(path: String, text: String) -> Result<String, ()> {
     // write file
-    println!("path: {} \n text: {}", path, text);
+    println!("write: path: {} \n text: {}", path, text);
     let _ = fs::write(path, text);
 
     Ok("File saved!".to_string())
+}
+#[tauri::command]
+async fn rename_file(path: String, name: String) -> Result<String, ()> {
+    // write file
+    println!("rename: path: {} \n name: {}", path, name);
+    let _ = fs::write(path, name);
+
+    Ok("File renamed!".to_string())
+}
+#[tauri::command]
+async fn check_file(path: String) -> Result<bool, ()> {
+    let exists = Path::new(&path).exists();
+    println!("check: path: {}, exists: {}", path, exists);
+
+    Ok(exists)
 }

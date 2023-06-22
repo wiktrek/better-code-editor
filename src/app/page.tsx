@@ -1,14 +1,17 @@
 'use client';
 import Image from 'next/image';
+import { invoke } from '@tauri-apps/api/tauri';
 import Link from 'next/link';
 import { useState } from 'react';
 export default function Home() {
   const [link, setLink] = useState('');
-  function generate_link(e: React.ChangeEvent<HTMLInputElement>) {
-    // "http://localhost:3000/api/D:&Users&wiktor&Desktop&projekty&bce&example.file.md"
-    let l =
-      '/api/' +
-      e.currentTarget.value.replaceAll('\\', '&').replaceAll('/', '&');
+  async function generate_link(e: React.ChangeEvent<HTMLInputElement>) {
+    const path = e.currentTarget.value;
+    let exists = await invoke('check_file', {
+      path: path.replaceAll('\\', '/'),
+    });
+    if (exists === false) return;
+    let l = '/api/' + path.replaceAll('\\', '&').replaceAll('/', '&');
     console.log(l);
     setLink(l);
   }
