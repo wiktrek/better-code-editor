@@ -1,25 +1,24 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
-import { write } from 'fs';
 export default async function Page({ params }: { params: { file: string } }) {
-  const [input, setInput] = useState('');
   const [prevkey, setPrevkey] = useState('');
   const { file } = params;
   const path = file
     .replace('http://localhost:3000/api/', '')
     .replaceAll('%3A', ':')
     .replaceAll('%26', '/');
-
   useEffect(() => {
     const open_file = async () => {
       let file: string = await invoke('open_file', {
         path: path,
       });
-      setInput(file);
+      console.log(file);
+      (document.getElementById('text') as HTMLTextAreaElement).value = file;
     };
     open_file().catch(console.error);
   });
+
   async function writeFile() {
     let text = (document.getElementById('text') as HTMLTextAreaElement).value;
 
@@ -47,9 +46,12 @@ export default async function Page({ params }: { params: { file: string } }) {
         <button className="" onClick={writeFile}>
           Save
         </button>
-        <textarea className=" bg-black" rows={50} cols={220} id="text">
-          {input}
-        </textarea>
+        <textarea
+          className=" bg-black"
+          rows={50}
+          cols={220}
+          id="text"
+        ></textarea>
       </div>
     </>
   );
