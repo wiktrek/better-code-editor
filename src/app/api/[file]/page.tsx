@@ -1,57 +1,51 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
+import { write } from 'fs';
 export default async function Page({ params }: { params: { file: string } }) {
   const [input, setInput] = useState('');
   const [prevkey, setPrevkey] = useState('');
   const { file } = params;
   const path = file.replaceAll('%3A', ':').replaceAll('%26', '/');
 
-  // // useEffect(() => {
-  // //   const open_file = async () => {
-  // //     setInput(
-  // //       await invoke('open_file', {
-  // //         path: path,
-  // //       })
-  // //     );
-  // //   };
+  useEffect(() => {
+    const open_file = async () => {
+      setInput(
+        await invoke('open_file', {
+          path: path,
+        })
+      );
+    };
+    open_file().catch(console.error);
+  });
+  async function writeFile() {
+    let text = (document.getElementById('text') as HTMLTextAreaElement).value;
 
-  //   open_file().catch(console.error);
-  // });
-  function writeFile(path: string, text: string) {
     console.log('a' + path + text);
+    await invoke('write_file', {
+      path: path,
+      text: text,
+    });
     // path: string, text: string
     // invoke('write_file', { path: path, text: text})
   }
   function getKey(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     const key = event.key;
     if (key === 's' && prevkey === 'Control') {
-      writeFile(path, event.currentTarget.value);
+      writeFile();
     }
     setPrevkey(key);
 
     console.log(event.currentTarget.value + 'key: ' + event.key);
   }
-  // useEffect(() => {
-  //   const keyDownHandler = (e: any) => console.log(`You pressed ${e.code}.`);
-  //   document.addEventListener('keydown', keyDownHandler);
-
-  //   // clean up
-  //   return () => {
-  //     document.removeEventListener('keydown', keyDownHandler);
-  //   };
-  // }, []);
   return (
     <>
       <div>
         <p>file: {path}</p>
-        <textarea
-          className=" bg-black"
-          rows={50}
-          cols={220}
-          id="text"
-          onKeyDown={getKey}
-        >
+        <button className="" onClick={writeFile}>
+          Save
+        </button>
+        <textarea className=" bg-black" rows={50} cols={220} id="text">
           {input}
         </textarea>
       </div>

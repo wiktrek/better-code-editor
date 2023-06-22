@@ -16,6 +16,9 @@ async fn open_file(path: String) -> Result<String, ()> {
 #[tauri::command]
 async fn write_file(path: String, text: String) -> Result<String, ()> {
     // write file
-    println!("{}{}", path, text);
+    println!("path: {} \n text: {}", path, text);
+
+    fs::write(path, text);
+
     Ok("file written".to_string())
 }
