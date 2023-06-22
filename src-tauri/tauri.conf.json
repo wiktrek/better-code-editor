@@ -33,7 +33,7 @@
       },
       "externalBin": [],
       "icon": ["icons/icon.ico"],
-      "identifier": "com.tauri.dev",
+      "identifier": "idk.wiktrek.xyz",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
