@@ -1,21 +1,21 @@
 # bce
 
-### better
+### 🔝 better
 
-### code
+### 💻 code
 
-### editor
+### 📔 editor
 
-### next.js, rust, tauri
+### 🔧 next.js, rust, tauri
 
-# added
+# added✅
 
 - open file
 - show what file is open
 - open file from input
 - save file
 
-# planning to add
+# planning to add📋
 
 - delete file
 - rename file
