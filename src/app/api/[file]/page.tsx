@@ -18,7 +18,24 @@ export default async function Page({ params }: { params: { file: string } }) {
     };
     open_file().catch(console.error);
   });
+  async function rename() {
+    const name = (document.getElementById('rename_input') as HTMLInputElement)
+      .value;
+    const patharr = path.split('/');
+    patharr.pop();
+    const str = patharr.join(',');
+    console.log(name + str);
 
+    // await invoke('rename', { path: path, name: name });
+  }
+  function rename_menu() {
+    const editor = document.getElementById('editor');
+    const rename_element = document.getElementById('rename');
+    if (rename_element != null && editor != null) {
+      editor.style.visibility = 'hidden';
+      rename_element.style.visibility = 'visible';
+    }
+  }
   async function writeFile() {
     let text = (document.getElementById('text') as HTMLTextAreaElement).value;
 
@@ -41,17 +58,17 @@ export default async function Page({ params }: { params: { file: string } }) {
   }
   return (
     <>
-      <div>
+      <div id="rename" className=" invisible">
+        <input placeholder="name" id="rename_input"></input>
+        <button onClick={rename}>rename</button>
+      </div>
+      <div id="editor" className=" visible">
         <p>file: {path}</p>
         <button className="" onClick={writeFile}>
           Save
         </button>
-        <textarea
-          className=" bg-black"
-          rows={50}
-          cols={220}
-          id="text"
-        ></textarea>
+        <button onClick={rename_menu}>rename</button>
+        <textarea className=" bg-black" rows={50} cols={220} id="text" />
       </div>
     </>
   );
