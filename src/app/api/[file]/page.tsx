@@ -63,7 +63,11 @@ export default async function Page({ params }: { params: { file: string } }) {
   return (
     <>
       <div id="rename" className=" invisible">
-        <input placeholder="name" id="rename_input"></input>
+        <input
+          placeholder="name"
+          id="rename_input"
+          className="text-white bg-black"
+        ></input>
         <button onClick={rename}>rename</button>
       </div>
       <div id="editor" className=" visible">
