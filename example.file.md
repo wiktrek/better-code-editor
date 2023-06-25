@@ -1,1 +1,1 @@
-example.file.md loaded
+# example file
