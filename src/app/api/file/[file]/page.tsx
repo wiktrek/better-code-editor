@@ -6,7 +6,7 @@ export default async function Page({ params }: { params: { file: string } }) {
   const [prevkey, setPrevkey] = useState('');
   const { file } = params;
   const path = file
-    .replace('http://localhost:3000/api/', '')
+    .replace('http://localhost:3000/api/file', '')
     .replaceAll('%3A', ':')
     .replaceAll('%26', '/');
   useEffect(() => {
@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { file: string } }) {
     await invoke('rename_file', { path: path, name: str });
     console.log(name + str + window.location);
     return window.location.replace(
-      'http://localhost:3000/api/' +
+      'http://localhost:3000/api/file/' +
         str.replaceAll('/', '%26').replaceAll(':', '%3A')
     );
   }
@@ -78,7 +78,7 @@ export default async function Page({ params }: { params: { file: string } }) {
         ></input>
         <button onClick={rename}>rename</button>
       </div>
-      <div id="editor" className=" visible">
+      <div id="editor" className=" visible  space-x-5">
         <p>file: {path}</p>
         <button className="" onClick={writeFile}>
           Save

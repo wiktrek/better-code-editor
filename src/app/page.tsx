@@ -15,7 +15,7 @@ export default function Home() {
     if (exists === false) return setError("Error: file doesn't exist");
     if (exists === true) setError('');
 
-    let l = '/api/' + path.replaceAll('\\', '&').replaceAll('/', '&');
+    let l = '/api/file/' + path.replaceAll('\\', '&').replaceAll('/', '&');
     return window.location.replace('http://localhost:3000' + l);
   }
   return (
