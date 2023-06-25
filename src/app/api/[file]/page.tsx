@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
+import { redirect } from 'next/navigation';
 export default async function Page({ params }: { params: { file: string } }) {
   const [prevkey, setPrevkey] = useState('');
   const { file } = params;
@@ -23,10 +24,13 @@ export default async function Page({ params }: { params: { file: string } }) {
       .value;
     const patharr = path.split('/');
     patharr.pop();
-    const str = patharr.join(',');
-    console.log(name + str);
-
-    // await invoke('rename', { path: path, name: name });
+    const str = patharr.join(',').replaceAll(',', '/') + `/${name}`;
+    await invoke('rename_file', { path: path, name: str });
+    console.log(name + str + window.location);
+    return window.location.replace(
+      'http://localhost:3000/api/' +
+        str.replaceAll('/', '%26').replaceAll(':', '%3A')
+    );
   }
   function rename_menu() {
     const editor = document.getElementById('editor');

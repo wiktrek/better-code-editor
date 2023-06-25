@@ -12,6 +12,7 @@ export default function Home() {
       path: path.replaceAll('\\', '/'),
     });
     if (exists === false) return setError("Error: file doesn't exist");
+    if (exists === true) setError('');
     let l = '/api/' + path.replaceAll('\\', '&').replaceAll('/', '&');
     console.log(l);
     setLink(l);

@@ -31,7 +31,7 @@ async fn write_file(path: String, text: String) -> Result<String, ()> {
 async fn rename_file(path: String, name: String) -> Result<String, ()> {
     // write file
     println!("rename: path: {} \n name: {}", path, name);
-    let _ = fs::write(path, name);
+    let _ = fs::rename(path, name);
 
     Ok("File renamed!".to_string())
 }
