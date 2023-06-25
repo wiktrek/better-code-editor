@@ -14,10 +14,11 @@
 - show what file is open
 - open file from input
 - save file
+- rename file
 
 # planning to add📋
 
 - delete file
-- rename file
+
 - open file after renaming
 - multiple files open

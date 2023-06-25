@@ -19,6 +19,12 @@ export default async function Page({ params }: { params: { file: string } }) {
     };
     open_file().catch(console.error);
   });
+
+  async function delete_file() {
+    await invoke('delete_file', {
+      
+    })
+  }
   async function rename() {
     const name = (document.getElementById('rename_input') as HTMLInputElement)
       .value;
@@ -40,6 +46,7 @@ export default async function Page({ params }: { params: { file: string } }) {
       rename_element.style.visibility = 'visible';
     }
   }
+
   async function writeFile() {
     let text = (document.getElementById('text') as HTMLTextAreaElement).value;
 
@@ -76,6 +83,7 @@ export default async function Page({ params }: { params: { file: string } }) {
           Save
         </button>
         <button onClick={rename_menu}>rename</button>
+        <button onClick={delete_file}>delete</button>
         <textarea className=" bg-black" rows={50} cols={220} id="text" />
       </div>
     </>
