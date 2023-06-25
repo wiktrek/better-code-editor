@@ -22,8 +22,8 @@ export default async function Page({ params }: { params: { file: string } }) {
 
   async function delete_file() {
     await invoke('delete_file', {
-      
-    })
+      path: path,
+    });
   }
   async function rename() {
     const name = (document.getElementById('rename_input') as HTMLInputElement)
