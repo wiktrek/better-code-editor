@@ -18,9 +18,24 @@ export default function Home() {
     let l = '/api/file/' + path.replaceAll('\\', '&').replaceAll('/', '&');
     return window.location.replace('http://localhost:3000' + l);
   }
+  async function new_file() {
+    const path = (document.getElementById('file_path') as HTMLInputElement)
+      .value;
+    let exists = await invoke('check_file', {
+      path: path.replaceAll('\\', '/'),
+    });
+
+    if (exists === true) return setError('Error: file already exists');
+    if (exists === false) setError('');
+    await invoke('write_file', {
+      path: path.replaceAll('\\', '/'),
+    });
+    let l = '/api/file/' + path.replaceAll('\\', '&').replaceAll('/', '&');
+    return window.location.replace('http://localhost:3000' + l);
+  }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
+      <div className="grid gap-2">
         <input
           className="text-white bg-black"
           id="file_path"
@@ -28,6 +43,7 @@ export default function Home() {
         />
         <a className=" text-red-800">{error}</a>
         <button onClick={redirect}>Open file</button>
+        <button onClick={new_file}>New file</button>
       </div>
     </main>
   );

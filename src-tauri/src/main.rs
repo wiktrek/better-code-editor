@@ -10,7 +10,6 @@ fn main() {
             rename_file,
             check_file,
             delete_file,
-            new_file
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -46,16 +45,6 @@ async fn delete_file(path: String) -> Result<String, ()> {
 
     Ok("File deleted!".to_string())
 }
-
-#[tauri::command]
-async fn new_file(path: String) -> Result<String, ()> {
-    // new file
-    println!("delete: path: {}", path);
-    let _ = fs::create_dir(path);
-
-    Ok("File deleted!".to_string())
-}
-
 #[tauri::command]
 async fn check_file(path: String) -> Result<bool, ()> {
     // checks if file exists
