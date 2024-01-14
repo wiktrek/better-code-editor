@@ -69,7 +69,7 @@ export default async function Page({ params }: { params: { file: string } }) {
     console.log(event.currentTarget.value + 'key: ' + event.key);
   }
   return (
-    <>
+    <main className="bg-background">
       <div id="rename" className=" invisible">
         <input
           placeholder="name"
@@ -78,7 +78,7 @@ export default async function Page({ params }: { params: { file: string } }) {
         ></input>
         <button onClick={rename}>rename</button>
       </div>
-      <div id="editor" className=" visible  space-x-5">
+      <div id="editor" className=" visible  space-x-5 text-accent">
         <p>file: {path}</p>
         <button className="" onClick={writeFile}>
           Save
@@ -87,12 +87,12 @@ export default async function Page({ params }: { params: { file: string } }) {
         <button onClick={delete_file}>delete</button>
         <textarea
           spellCheck="false"
-          className=" bg-black"
+          className=" bg-background text-text"
           rows={50}
           cols={220}
           id="text"
         />
       </div>
-    </>
+    </main>
   );
 }
