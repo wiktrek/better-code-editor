@@ -85,7 +85,13 @@ export default async function Page({ params }: { params: { file: string } }) {
         </button>
         <button onClick={rename_menu}>rename</button>
         <button onClick={delete_file}>delete</button>
-        <textarea className=" bg-black" rows={50} cols={220} id="text" />
+        <textarea
+          spellCheck="false"
+          className=" bg-black"
+          rows={50}
+          cols={220}
+          id="text"
+        />
       </div>
     </>
   );

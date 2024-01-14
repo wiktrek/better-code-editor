@@ -18,6 +18,12 @@ export default function Home() {
     let l = '/api/file/' + path.replaceAll('\\', '&').replaceAll('/', '&');
     return window.location.replace('http://localhost:3000' + l);
   }
+  addEventListener('keydown', (event) => {
+    console.log(event);
+    if (event.key == 'Enter') {
+      redirect();
+    }
+  });
   async function new_file() {
     const path = (document.getElementById('file_path') as HTMLInputElement)
       .value;
